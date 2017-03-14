@@ -1,0 +1,12 @@
+#!/bin/sh
+set -ex
+# Getting some build dependencies
+apk add -update -no-cache curl
+# Downloading artifacts
+curl -o https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz > /resources/helm-v${HELM_VERSION}-linux-amd64.tar.gz
+# Installing artifacts
+tar -xzf /resources/helm-v${HELM_VERSION}-linux-amd64.tar.gz
+mv linux_amd64/helm /usr/local/bin/helm
+# Cleaning out image
+rm -rf linux_amd64
+apk del curl
